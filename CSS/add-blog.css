@@ -1,0 +1,124 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: "Segoe UI", sans-serif;
+    background: #2e2e2e; /* dark gray background */
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+  }
+  
+  .blog-wrapper {
+    background: #fff;
+    padding: 30px 40px;
+    border-radius: 10px;
+    max-width: 800px;
+    width: 100%;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  }
+  
+  .blog-form h2 {
+    font-size: 28px;
+    color: #222;
+    margin-bottom: 5px;
+  }
+  
+  .blog-form p {
+    font-size: 15px;
+    color: #666;
+    margin-bottom: 20px;
+  }
+  
+  .form-group-row {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  
+  .form-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+  
+  .full-width {
+    width: 100%;
+  }
+  
+  label {
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #333;
+  }
+  
+  input[type="text"],
+  textarea,
+  input[type="file"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border 0.3s ease;
+  }
+  
+  input[type="text"]:focus,
+  textarea:focus {
+    border-color: #1cd8d2;
+    outline: none;
+  }
+  
+  textarea {
+    resize: vertical;
+  }
+  
+  input[type="file"] {
+    padding: 10px;
+    background: #f9f9f9;
+    cursor: pointer;
+    border: 2px dashed #ccc;
+  }
+  
+  input[type="file"]:hover {
+    border-color: #1cd8d2;
+  }
+  
+  .submit-btn {
+    background-color: #1cd8d2;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    padding: 12px 25px;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .submit-btn:hover {
+    background-color: #17c0bb;
+  }
+
+  .back-btn {
+    background-color: #ccc;
+    color: #333;
+    font-weight: bold;
+    border: none;
+    padding: 12px 25px;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: background 0.3s ease;
+  }
+  
+  .back-btn:hover {
+    background-color: #bbb;
+  }
+  

@@ -1,0 +1,74 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #23272f; /* Dark grey background */
+    color: #333;
+    padding-top: 4.5rem; /* Adjust if you have a fixed header */
+}
+
+.blog-display {
+    background: transparent; /* Inherit dark background */
+    padding: 3rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+}
+
+.blog-display .container {
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+    background: #fff; /* White content area */
+    border-radius: 24px;
+    box-shadow: 0 8px 30px rgba(255, 94, 98, 0.18), 0 1.5px 8px rgba(48, 207, 208, 0.12);
+    padding: 2.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #23272f; /* Dark text inside white container */
+}
+
+.blog-display h2#blogTitle {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #ff4e50;
+    text-align: center;
+}
+
+.blog-display p#blogAuthor {
+    margin: 0 0 1.5rem 0;
+    color: #30cfd0;
+    font-style: italic;
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+.blog-display #blogContent {
+    margin-bottom: 1.5rem;
+    color: #555;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    text-align: left;
+    width: 100%;
+}
+
+.blog-display img#blogImage {
+    width: 100%;
+    max-width: 350px;
+    height: auto;
+    border-radius: 16px;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 24px rgba(255, 94, 98, 0.15);
+    object-fit: cover;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
