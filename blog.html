@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE-Edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- ===================== CSS ===================== -->
+        <link rel="stylesheet" href="CSS/blog-style.css">
+
+        <!-- ===================== LINE ICONS ===================== -->
+        <link rel="stylesheet" href="https://cdn.lineicons.com/4.0/lineicons.css">
+
+        <!-- ===================== SWIPER CSS ===================== -->
+        <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+
+        <title>Blog | ARK</title>
+
+        <style>
+            .btn {
+                display: inline-block;
+                padding: 12px 24px;
+                background: linear-gradient(45deg, #ff6b6b, #f06d06); /* Gradient from red to orange */
+                color: white;
+                text-decoration: none;
+                border-radius: 30px;
+                font-weight: bold;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                transition: all 0.3s ease-in-out;
+            }
+        
+            .btn:hover {
+                background: linear-gradient(45deg, #f06d06, #ff6b6b); /* Reverse gradient on hover */
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+                transform: translateY(-2px); /* Subtle lift effect */
+            }
+            .delete-btn {
+                background: linear-gradient(45deg, #ff4d4d, #d63031);
+                margin-left: 10px;
+                border: none;
+                cursor: pointer;
+            }
+            
+            .delete-btn:hover {
+                background: linear-gradient(45deg, #d63031, #ff4d4d);
+                transform: scale(1.05);
+            }            
+        </style>
+        
+    </head>
+    <body>
+
+
+        <!-- ===================== HEADER ===================== -->
+        <header class="header" id="header">
+            <!-- nav -->
+            <nav class="nav container padd-15">
+                <!-- nav logo -->
+                <a href="index.html" class="nav-logo">
+                    <h2>Ark</h2>
+                </a>
+                <!-- nav menu -->
+                <div class="nav-menu" id="nav-menu">
+                    <ul class="nav-list">
+                        <!-- nav list -->
+                        <li class="nav-item">
+                            <a href="index.html" class="nav-link active-link">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="index.html#about" class="nav-link">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="index.html#services" class="nav-link">Services</a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a href="blog-comments.html" class="nav-link">Comments</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </nav>
+        </header>
+
+        <!-- ===================== BLOG SECTION ===================== -->
+        <section class="blog section" id="blog">
+            <div class="container padd-15">
+                <h2 class="section-title">Latest Blog Posts</h2>
+                <div class="blog-container" id="blog-container">
+                    <!-- Blog posts will be manually injected here -->
+                </div>
+                <!-- Add Blog Button -->
+                <div style="text-align: center; margin-top: 20px;">
+                    <a href="add-blog.html" class="btn">Add New Blog</a>
+                    <button class="btn delete-btn" onclick="deleteAllBlogs()">Delete All Blogs</button>
+                </div>                
+            </div>
+        </section>
+
+    </body>
+
+    <script>
+        // Retrieve blog data from localStorage
+  const blogs = JSON.parse(localStorage.getItem('blogs')) || [];
+  const blogContainer = document.getElementById('blog-container');
+
+  function deleteAllBlogs() {
+    if (blogs.length === 0) {
+      alert("There are no blog posts to delete.");
+      return;
+    }
+
+    if (confirm("Are you sure you want to delete all blog posts?")) {
+      localStorage.removeItem('blogs');
+      location.reload();
+    }
+  }
+
+  if (blogs.length > 0) {
+    blogs.forEach((blog, index) => {
+      const blogCard = document.createElement('div');
+      blogCard.classList.add('blog-card');
+
+      // Function to get correct image path or data URL
+      function getImageSrc(image) {
+        if (!image) return '';
+        if (image.startsWith('data:image/')) {
+          return image; // It's a base64 data URL
+        }
+        return `/uploads/${image}`; // It's a filename
+      }
+
+      const imagePath = getImageSrc(blog.image);
+
+      blogCard.innerHTML = `
+        ${imagePath ? `<img src="${imagePath}" alt="${blog.title}" class="blog-img">` : ''}
+        <div class="blog-content">
+          <h3 class="blog-title">${blog.title}</h3>
+          <p class="blog-desc">${blog.content.substring(0, 100)}...</p>
+          <p><strong>By:</strong> ${blog.author}</p>
+          <a href="blog-display.html?index=${index}" class="blog-btn">Read More</a>
+        </div>
+      `;
+
+      blogContainer.appendChild(blogCard);
+    });
+  } else {
+    blogContainer.innerHTML = `<p>No blog posts available. Please add a new blog.</p>`;
+  }  
+    </script>
+</html>
+
+
+
+

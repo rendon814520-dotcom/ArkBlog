@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Submit Blog</title>
+  <link rel="stylesheet" href="CSS/add-blog.css" />
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+<body>
+  <div class="blog-wrapper">
+    <form class="blog-form" enctype="multipart/form-data" onsubmit="return handleSubmit(event)">
+      <h2>Blog Form</h2>
+      <p>Please fill in your blog details and upload an image.</p>
+
+      <div class="form-group-row">
+        <div class="form-group">
+          <label for="title">Blog Title</label>
+          <input type="text" id="title" name="title" required>
+        </div>
+        <div class="form-group">
+          <label for="author">Author Name</label>
+          <input type="text" id="author" name="author" required>
+        </div>
+      </div>
+
+      <div class="form-group full-width">
+        <label for="content">Content</label>
+        <textarea id="content" name="content" rows="5" required></textarea>
+      </div>
+
+      <div class="form-group full-width">
+        <label for="imageUpload">Upload Image</label>
+        <input type="file" id="imageUpload" name="blog_image" accept="image/*" required>
+        <img id="previewImage" src="#" alt="Image Preview" style="display: none; max-width: 100%; height: auto; border: 1px solid #ccc;" />
+      </div>
+
+      <button type="submit" class="submit-btn">Submit Blog</button>
+      <button type="button" class="back-btn" onclick="history.back()">Back</button>
+
+    </form>
+  </div>
+
+  <!-- Information Container -->
+  <div id="infoContainer" class="info-container" style="display: none;">
+    <p>Blog successfully submitted!</p>
+    <button onclick="redirectToBlog()">OK</button>
+  </div>
+
+  <script>
+         // Preview image when selected and store base64 in sessionStorage
+  document.getElementById('imageUpload').addEventListener('change', function (event) {
+    const file = event.target.files[0];
+    if (file && file.type.startsWith('image/')) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const img = document.getElementById('previewImage');
+        img.src = e.target.result;
+        img.style.display = 'block';
+
+        // Save Base64 string temporarily
+        sessionStorage.setItem('blogImageBase64', e.target.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+
+  // Handle form submission
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    // Get base64 image from sessionStorage
+    const imageBase64 = sessionStorage.getItem('blogImageBase64') || '';
+
+    // Collect blog data
+    const blogData = {
+      title: document.getElementById('title').value,
+      author: document.getElementById('author').value,
+      content: document.getElementById('content').value,
+      image: imageBase64,
+    };
+
+    // Retrieve existing blogs from localStorage or initialize an empty array
+    let blogs = JSON.parse(localStorage.getItem('blogs')) || [];
+
+    // Add the new blog to the array
+    blogs.push(blogData);
+
+    // Store the updated list of blogs back in localStorage
+    localStorage.setItem('blogs', JSON.stringify(blogs));
+
+    // Hide the form and show the success message
+    document.querySelector('.blog-form').style.display = 'none';
+    document.getElementById('infoContainer').style.display = 'block';
+
+    // Clear the temporary image from sessionStorage
+    sessionStorage.removeItem('blogImageBase64');
+  }
+
+  // Redirect to blog page
+  function redirectToBlog() {
+    window.location.href = 'blog.html';
+  }
+  </script>
+</body>
+</html>

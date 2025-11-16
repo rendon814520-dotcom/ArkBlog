@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE-Edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="CSS/styles.css">
+
+        <title>Blog Post | ARK</title>
+    </head>
+    <body>
+
+        <section class="blog-display">
+            <div class="container padd-15">
+                <h2 id="blogTitle"></h2>
+                <p id="blogAuthor"></p>
+                <div id="blogContent"></div>
+                <img id="blogImage" src="" alt="Blog Image" />
+            </div>
+        </section>
+
+        <script>
+            // Helper to get query parameter
+            function getQueryParam(param) {
+                const urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get(param);
+            }
+
+            // Get the blog index from the URL
+            const blogIndex = getQueryParam('index');
+            const blogs = JSON.parse(localStorage.getItem('blogs')) || [];
+
+            if (blogIndex !== null && blogs[blogIndex]) {
+                const blogData = blogs[blogIndex];
+                document.getElementById('blogTitle').textContent = blogData.title;
+                document.getElementById('blogAuthor').textContent = `By: ${blogData.author}`;
+                document.getElementById('blogContent').textContent = blogData.content;
+                // Handle base64 or file image
+                if (blogData.image && blogData.image.startsWith('data:image/')) {
+                    document.getElementById('blogImage').src = blogData.image;
+                } else if (blogData.image) {
+                    document.getElementById('blogImage').src = 'uploads/' + blogData.image;
+                } else {
+                    document.getElementById('blogImage').src = 'default-image.png';
+                }
+            } else {
+                alert('No blog data found.');
+            }
+        </script>
+    </body>
+</html>
